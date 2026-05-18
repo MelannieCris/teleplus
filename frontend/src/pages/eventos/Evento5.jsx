@@ -2,9 +2,15 @@ import banner from "../../assets/img/banner1-evento5.jpg";
 import logoEvento from "../../assets/img/logo-evento5.png";
 import mapa from "../../assets/img/mapa-evento5.png";
 import styles from "../../css/evento5.module.css";
+import { useComprarEntrada } from "../../hooks/useComprarEntrada";
 import LayoutPrincipal from "../../layouts/LayoutPrincipal";
 
 export default function Evento5() {
+  const { comprarEntrada } = useComprarEntrada();
+  const evento = "Cenicienta El Musical";
+  const fecha = "20 Junio 2026";
+  const lugar = "Teatro Manuel Segura";
+
   return (
     <LayoutPrincipal>
       <div className="bg-black text-white min-vh-100">
@@ -129,19 +135,37 @@ export default function Evento5() {
         >
           <h3 className="mb-4">Compra tus entradas aquí</h3>
 
-          <a
-            href="/compra?evento=Cenicienta&precio=119"
+          <button
             className={`btn btn-info w-100 mb-3 fw-bold ${styles["bg-celeste"]} border-0 py-2`}
+            onClick={() =>
+              comprarEntrada({
+                evento,
+                fecha,
+                lugar,
+                tipo: "PREVENTA NUEVAS FUNCIONES",
+                precio: 119.0,
+                zona: "ZONA DIAMANTE",
+              })
+            }
           >
             COMPRAR PREVENTA (S/ 119)
-          </a>
+          </button>
 
-          <a
-            href="/compra?evento=Cenicienta&precio=150"
+          <button
             className="btn btn-outline-warning w-100 mb-3 fw-bold py-2"
+            onClick={() =>
+              comprarEntrada({
+                evento,
+                fecha,
+                lugar,
+                tipo: "REGULAR",
+                precio: 150.0,
+                zona: "ZONA DIAMANTE",
+              })
+            }
           >
             PRECIO REGULAR (S/ 150)
-          </a>
+          </button>
 
           <small className="text-secondary d-block">
             ¿Cómo comprar en la web?

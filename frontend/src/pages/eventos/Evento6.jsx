@@ -2,9 +2,16 @@ import banner from "../../assets/img/banner-evento6.jpeg";
 import logoEvento from "../../assets/img/logo-evento6.jpeg";
 import mapa from "../../assets/img/mapa_evento6.jpeg";
 import styles from "../../css/evento6.module.css";
+import { useComprarEntrada } from "../../hooks/useComprarEntrada";
 import LayoutPrincipal from "../../layouts/LayoutPrincipal";
 
 export default function Evento6() {
+  const { comprarEntrada } = useComprarEntrada();
+
+  const evento = "Sebastian Yatra en Lima";
+  const fecha = "10 Octubre 2026";
+  const lugar = "Arena Perú";
+
   return (
     <LayoutPrincipal>
       <div className={styles["page"]}>
@@ -38,8 +45,16 @@ export default function Evento6() {
                   <p>Regular: S/ 747.50</p>
                   <button
                     className="btn btn-danger w-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#buyModal"
+                    onClick={() =>
+                      comprarEntrada({
+                        evento,
+                        fecha,
+                        lugar,
+                        zona: "PRIMERAS FILAS",
+                        tipo: "REGULAR",
+                        precio: 747.5,
+                      })
+                    }
                   >
                     Comprar
                   </button>
@@ -51,8 +66,16 @@ export default function Evento6() {
                   <p>Regular: S/ 632.50</p>
                   <button
                     className="btn btn-primary w-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#buyModal"
+                    onClick={() =>
+                      comprarEntrada({
+                        evento,
+                        fecha,
+                        lugar,
+                        zona: "DIAMANTE",
+                        tipo: "REGULAR",
+                        precio: 632.5,
+                      })
+                    }
                   >
                     Comprar
                   </button>
@@ -64,8 +87,16 @@ export default function Evento6() {
                   <p>Regular: S/ 460.00</p>
                   <button
                     className="btn btn-primary w-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#buyModal"
+                    onClick={() =>
+                      comprarEntrada({
+                        evento,
+                        fecha,
+                        lugar,
+                        zona: "PLATINUM",
+                        tipo: "REGULAR",
+                        precio: 460.0,
+                      })
+                    }
                   >
                     Comprar
                   </button>
@@ -77,8 +108,16 @@ export default function Evento6() {
                   <p>Regular: S/ 345.00</p>
                   <button
                     className="btn btn-primary w-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#buyModal"
+                    onClick={() =>
+                      comprarEntrada({
+                        evento,
+                        fecha,
+                        lugar,
+                        zona: "GOLDEN",
+                        tipo: "REGULAR",
+                        precio: 345.0,
+                      })
+                    }
                   >
                     Comprar
                   </button>
@@ -90,8 +129,16 @@ export default function Evento6() {
                   <p>Regular: S/ 287.50</p>
                   <button
                     className="btn btn-secondary w-100"
-                    data-bs-toggle="modal"
-                    data-bs-target="#buyModal"
+                    onClick={() =>
+                      comprarEntrada({
+                        evento,
+                        fecha,
+                        lugar,
+                        zona: "SILVER",
+                        tipo: "REGULAR",
+                        precio: 287.5,
+                      })
+                    }
                   >
                     Comprar
                   </button>
@@ -116,18 +163,6 @@ export default function Evento6() {
             <strong>“Tacones Rojos”</strong> y <strong>“Cristina”</strong>.
           </p>
         </section>
-
-        <div className="modal fade" id="buyModal">
-          <div className="modal-dialog modal-dialog-centered">
-            <div className={`${styles["modal-content"]} text-center p-4`}>
-              <h4>Compra simulada</h4>
-              <p>Serás redirigido a compras</p>
-              <button className="btn btn-success" onClick="goToBuy()">
-                Continuar
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </LayoutPrincipal>
   );

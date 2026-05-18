@@ -6,29 +6,14 @@ import mapaEvento from "../../assets/img/mapa_evento1.png";
 
 import LayoutPrincipal from "../../layouts/LayoutPrincipal";
 
-import { useNavigate } from "react-router-dom";
+import { useComprarEntrada } from "../../hooks/useComprarEntrada";
 
 function Evento1() {
-  const navigate = useNavigate();
+  const { comprarEntrada } = useComprarEntrada();
 
-  // FUNCIÓN PARA ENVIAR DATOS A COMPRAS
-  const comprarEntrada = (zona, tipo, precio) => {
-    navigate("/compras", {
-      state: {
-        evento: "Megadeth en Lima",
-
-        fecha: "25 Mayo 2026",
-
-        lugar: "Estadio Nacional",
-
-        zona,
-
-        tipo,
-
-        precio,
-      },
-    });
-  };
+  const evento = "Megadeth en Lima";
+  const fecha = "25 Mayo 2026";
+  const lugar = "Estadio Nacional";
 
   return (
     <LayoutPrincipal>
@@ -166,7 +151,16 @@ function Evento1() {
             <div className="col-md-6">
               <button
                 className="btn btn-dark w-100 py-3 fw-bold"
-                onClick={() => comprarEntrada("CAMPO A", "PREVENTA FANS", 330)}
+                onClick={() =>
+                  comprarEntrada({
+                    evento,
+                    fecha,
+                    lugar,
+                    zona: "CAMPO A",
+                    tipo: "PREVENTA FANS",
+                    precio: 330,
+                  })
+                }
               >
                 PREVENTA FANS
               </button>
@@ -177,7 +171,14 @@ function Evento1() {
               <button
                 className="btn btn-danger w-100 py-3 fw-bold"
                 onClick={() =>
-                  comprarEntrada("CAMPO A", "PREVENTA INTERBANK", 280)
+                  comprarEntrada({
+                    evento,
+                    fecha,
+                    lugar,
+                    zona: "CAMPO A",
+                    tipo: "PREVENTA INTERBANK",
+                    precio: 280,
+                  })
                 }
               >
                 PREVENTA INTERBANK
@@ -188,7 +189,16 @@ function Evento1() {
             <div className="col-md-6">
               <button
                 className="btn btn-secondary w-100 py-3 fw-bold"
-                onClick={() => comprarEntrada("CAMPO A", "PRECIO FULL", 400)}
+                onClick={() =>
+                  comprarEntrada({
+                    evento,
+                    fecha,
+                    lugar,
+                    zona: "CAMPO A",
+                    tipo: "PRECIO FULL",
+                    precio: 400,
+                  })
+                }
               >
                 PRECIO FULL
               </button>
@@ -198,7 +208,16 @@ function Evento1() {
             <div className="col-md-6">
               <button
                 className="btn btn-warning w-100 py-3 fw-bold"
-                onClick={() => comprarEntrada("CAMPO A", "CONADIS", 153)}
+                onClick={() =>
+                  comprarEntrada({
+                    evento,
+                    fecha,
+                    lugar,
+                    zona: "CAMPO A",
+                    tipo: "CONADIS",
+                    precio: 153,
+                  })
+                }
               >
                 CONADIS
               </button>

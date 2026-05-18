@@ -1,8 +1,15 @@
 import Eventos from "../../assets/img/evento4.png";
 import EventosF from "../../assets/img/map4.png";
 import styles from "../../css/evento4.module.css";
+import { useComprarEntrada } from "../../hooks/useComprarEntrada";
 import LayoutPrincipal from "../../layouts/LayoutPrincipal";
+
 function Evento4() {
+  const { comprarEntrada } = useComprarEntrada();
+  const evento = "Voces del Rock Latino Moyobamba";
+  const fecha = "15 Agosto 2026";
+  const lugar = "Estadio Municipal Moyobamba";
+
   return (
     <LayoutPrincipal>
       {/* Sección Hero */}
@@ -111,16 +118,68 @@ function Evento4() {
         </h3>
 
         <div className="d-grid gap-3 col-lg-6 mx-auto container">
-          <button className="btn btn-dark w-100 py-3 fw-bold">
+          <button
+            className="btn btn-dark w-100 py-3 fw-bold"
+            onClick={() =>
+              comprarEntrada({
+                evento,
+                fecha,
+                lugar,
+                tipo: "PREVENTA FANS",
+                precio: 230.0,
+                zona: "PLATINUM",
+              })
+            }
+          >
             PREVENTA FANS
           </button>
 
-          <button className="btn btn-dark w-100 py-3 fw-bold">
+          <button
+            className="btn btn-dark w-100 py-3 fw-bold"
+            onClick={() =>
+              comprarEntrada({
+                evento,
+                fecha,
+                lugar,
+                tipo: "PREVENTA INTERBANK",
+                precio: 210.0,
+                zona: "GOLD",
+              })
+            }
+          >
             PREVENTA INTERBANK
           </button>
 
-          <button className="btn btn-danger fw-bold py-2">PRECIO FULL</button>
-          <button className="btn btn-dark fw-bold py-2">CONADIS</button>
+          <button
+            className="btn btn-danger fw-bold py-2"
+            onClick={() =>
+              comprarEntrada({
+                evento,
+                fecha,
+                lugar,
+                tipo: "PRECIO FULL",
+                precio: 250.0,
+                zona: "SILVER",
+              })
+            }
+          >
+            PRECIO FULL
+          </button>
+          <button
+            className="btn btn-dark fw-bold py-2"
+            onClick={() =>
+              comprarEntrada({
+                evento,
+                fecha,
+                lugar,
+                tipo: "CONADIS",
+                precio: 120,
+                zona: "CONADIS",
+              })
+            }
+          >
+            CONADIS
+          </button>
         </div>
 
         <div className="mt-3">
