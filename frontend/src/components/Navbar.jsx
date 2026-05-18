@@ -56,16 +56,6 @@ export default function Navbar() {
                 Nosotros
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-                to="/compras"
-              >
-                Compras
-              </NavLink>
-            </li>
             {user === null ? (
               <>
                 <li className="nav-item">
