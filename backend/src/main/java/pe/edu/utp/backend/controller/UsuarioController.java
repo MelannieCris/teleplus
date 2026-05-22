@@ -1,5 +1,6 @@
 package pe.edu.utp.backend.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,22 +17,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.edu.utp.backend.entity.Usuario;
+import pe.edu.utp.backend.entity.Rol;
 import pe.edu.utp.backend.repository.UsuarioRepository;
+import pe.edu.utp.backend.repository.RolRepository;
 import pe.edu.utp.backend.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
 public class UsuarioController {
 
     private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository; 
     private final UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioRepository usuarioRepository, UsuarioService usuarioService) {
+    public UsuarioController(UsuarioRepository usuarioRepository, RolRepository rolRepository, UsuarioService usuarioService) {
         this.usuarioRepository = usuarioRepository;
+        this.rolRepository = rolRepository;
         this.usuarioService = usuarioService;
     }
-
+    
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Usuario loginData) {
 
@@ -45,26 +50,65 @@ public class UsuarioController {
             Usuario user = userOpt.get();
 
             if (user.getContrasena().equals(loginData.getContrasena())) {
-
-                return ResponseEntity.ok(user);
+                return ResponseEntity.ok(user); 
             }
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Correo o contraseña incorrectos");
     }
 
-    @GetMapping
-    public ResponseEntity<List<Usuario>> listarTodos() {
-        return ResponseEntity.ok(usuarioRepository.findAll());
+    @PostMapping("/login-admin")
+    public ResponseEntity<?> loginAdmin(@RequestBody Usuario loginData) {
+
+        if (loginData.getCorreo() == null || loginData.getContrasena() == null) {
+            return ResponseEntity.badRequest().body("Faltan datos de acceso");
+        }
+
+        Optional<Usuario> userOpt = usuarioRepository.findByCorreo(loginData.getCorreo());
+
+        if (userOpt.isPresent()) {
+            Usuario user = userOpt.get();
+
+            if (user.getContrasena().equals(loginData.getContrasena())) {
+
+                if (user.getRol() != null && "CLIENTE".equalsIgnoreCase(user.getRol().getNombreRol())) {
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                            .body("Acceso denegado: Tu cuenta no cuenta con permisos de administrador.");
+                }
+                return ResponseEntity.ok(user); 
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Correo o contraseña incorrectos");
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> registrar(@RequestBody Usuario usuario) {
 
         if (usuario.getEstado() == null) {
             usuario.setEstado("activo");
         }
+
+        if (usuario.getFecha_registro() == null) {
+            usuario.setFecha_registro(LocalDate.now());
+        }
+
+        if (usuario.getRol() == null) {
+            Optional<Rol> rolCliente = rolRepository.findByNombreRol("CLIENTE");
+            if (rolCliente.isPresent()) {
+                usuario.setRol(rolCliente.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Error: El rol 'CLIENTE' no está inicializado en la base de datos.");
+            }
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuario));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Usuario>> listarTodos() {
+        return ResponseEntity.ok(usuarioRepository.findAll());
     }
 
     @PutMapping("/{id}")
