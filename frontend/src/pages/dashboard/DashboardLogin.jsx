@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash, FaSignInAlt } from "react-icons/fa";
 import { Navigate, useNavigate } from "react-router-dom";
 import logoLogin from "../../assets/img/logo-login.jpeg";
 import styles from "../../css/dashboardLogin.module.css";
-import { loginUsuario } from "../../services/UsuarioService";
+import { loginAdministrador } from "../../services/UsuarioService"; 
 import {
   guardarSesionDashboard,
   recuperarSesionDashboard,
@@ -18,8 +18,6 @@ function DashboardLogin() {
   const [cargando, setCargando] = useState(false);
 
   const sesion = recuperarSesionDashboard();
-
-  // Clear error when user types — handled in onChange handlers below
 
   if (sesion) {
     return <Navigate to="/dashboard" replace />;
@@ -37,18 +35,48 @@ function DashboardLogin() {
     setError("");
 
     try {
-      const data = await loginUsuario({
+      const data = await loginAdministrador({
         correo,
         contrasena,
       });
 
       if (data) {
+        const nombreRol = data.rol?.nombreRol || data.rol?.nombre_rol || "";
+        const esAdminOManager = String(nombreRol).toUpperCase() === "ADMIN" || 
+                                String(nombreRol).toUpperCase() === "MANAGER";
+
+        if (!esAdminOManager) {
+          setError("Acceso denegado: Esta zona es exclusiva para el personal autorizado.");
+          setCargando(false);
+          return;
+        }
         guardarSesionDashboard(data);
         navigate("/dashboard", { replace: true });
       }
     } catch (loginError) {
-      console.error(loginError);
-      setError("Correo o contraseña incorrectos.");
+      console.error("Detalle completo del error:", loginError);
+
+      if (loginError.response) {
+        const status = loginError.response.status;
+        const dataBackend = loginError.response.data;
+
+        if (status === 403) {
+          setError(typeof dataBackend === "string" ? dataBackend : "Acceso denegado: No tienes permisos para ingresar al panel.");
+        } else if (status === 401) {
+          setError("Correo o contraseña incorrectos.");
+        } else {
+          setError(`Error en el servidor (${status}). Inténtalo más tarde.`);
+        }
+      } 
+
+      else if (loginError.message && loginError.message.includes("403")) {
+        setError("Acceso denegado: No tienes permisos para ingresar al panel.");
+      } else if (loginError.message && loginError.message.includes("401")) {
+        setError("Correo o contraseña incorrectos.");
+      } 
+      else {
+        setError("Acceso denegado: Tu cuenta no cuenta con permisos de administrador.");
+      }
     } finally {
       setCargando(false);
     }

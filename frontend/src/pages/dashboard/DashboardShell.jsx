@@ -1,18 +1,26 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "../../css/dashboard.module.css";
-import { cerrarSesionDashboard } from "../../utils/dashboardAuth";
+import { cerrarSesionDashboard, recuperarSesionDashboard } from "../../utils/dashboardAuth";
 
 function DashboardShell({ activeSection, title, subtitle, children }) {
   const navigate = useNavigate();
+  const usuarioLogueado = recuperarSesionDashboard();
+  const nombreDelRol = usuarioLogueado?.rol?.nombreRol;
   const navItems = [
     { to: "/dashboard", label: "Dashboard", section: "dashboard" },
     { to: "/dashboard/eventos", label: "Eventos", section: "eventos" },
     { to: "/dashboard/usuarios", label: "Usuarios", section: "usuarios" },
   ];
 
+  const filteredNavItems = navItems.filter(item => {
+    if (item.section === "usuarios" && nombreDelRol === "MANAGER") {
+      return false;
+    }
+    return true;
+  });
+
   return (
     <div className={styles["dashboard-container"]}>
-      {/* Offcanvas sidebar for small screens */}
       <div
         className="offcanvas offcanvas-start d-md-none"
         tabIndex={-1}
@@ -41,7 +49,7 @@ function DashboardShell({ activeSection, title, subtitle, children }) {
               className={styles["sidebar-nav"]}
               aria-label="Navegación del dashboard"
             >
-              {navItems.map((item) => (
+              {filteredNavItems.map((item) => (
                 <a
                   key={item.to}
                   href={item.to}
@@ -98,7 +106,7 @@ function DashboardShell({ activeSection, title, subtitle, children }) {
           className={styles["sidebar-nav"]}
           aria-label="Navegación del dashboard"
         >
-          {navItems.map((item) => (
+          {filteredNavItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

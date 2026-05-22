@@ -11,12 +11,39 @@ export const loginUsuario = async (credenciales) => {
     });
 
     if (!respuesta.ok) {
-      throw new Error("Credenciales incorrectas");
+      const textoError = await respuesta.text();
+      const errorPersonalizado = new Error(textoError || "Credenciales incorrectas");
+      errorPersonalizado.response = { status: respuesta.status, data: textoError };
+      throw errorPersonalizado;
     }
 
     return await respuesta.json();
   } catch (error) {
     console.error("Error en loginUsuario:", error);
+    throw error;
+  }
+};
+
+export const loginAdministrador = async (credenciales) => {
+  try {
+    const respuesta = await fetch(`${API_URL}/login-admin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credenciales),
+    });
+
+    if (!respuesta.ok) {
+      const textoError = await respuesta.text();
+      const errorPersonalizado = new Error(textoError || "Error de autenticación administrativa");
+      errorPersonalizado.response = { status: respuesta.status, data: textoError };
+      throw errorPersonalizado;
+    }
+
+    return await respuesta.json();
+  } catch (error) {
+    console.error("Error en loginAdministrador:", error);
     throw error;
   }
 };
