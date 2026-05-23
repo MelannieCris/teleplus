@@ -15,10 +15,10 @@ import java.time.LocalTime;
 @Data
 public class Entrada {
     @Id
-   @GeneratedValue(strategy= GenerationType.AUTO)
-   private Long id_entrada;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id_entrada;
 
-    @Column(name = "codigo_qr",  unique = true)
+    @Column(name = "codigo_qr", unique = true)
     private String codigo_qr;
 
     @Column(length = 30)
