@@ -20,6 +20,7 @@ import PaginaNoEncontrada from "./pages/PaginaNoEncontrada";
 import Perfil from "./pages/Perfil";
 import Registro from "./pages/Registro";
 import VerBoletos from "./pages/VerBoletos";
+import PoliticaCompra from "./pages/PoliticaCompra";
 
 function RouteTransition() {
   const location = useLocation();
@@ -54,6 +55,7 @@ function RouteTransition() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/dashboard/login" element={<DashboardLogin />} />
+        <Route path="/politica-compra" element={<PoliticaCompra />} />
 
         <Route element={<DashboardGuard />}>
           <Route path="/dashboard" element={<IndexDashboard />} />

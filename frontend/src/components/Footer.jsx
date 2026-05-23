@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer className="bg-black text-white">
@@ -20,12 +22,12 @@ export default function Footer() {
       <div className="bg-black text-white py-4 border-top border-secondary">
         <div className="container">
           <div className="d-flex flex-wrap gap-2 align-items-center mb-3">
-            <a
-              href="#"
-              className="text-white text-decoration-none border-end pe-2 me-1"
+            <Link
+           to="/politica-compra"
+            className="text-white text-decoration-none border-end pe-2 me-1"
             >
-              Política de Compra
-            </a>
+            Política de Compra
+          </Link>
             <a
               href="#"
               className="text-white text-decoration-none border-end pe-2 me-1"
