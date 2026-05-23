@@ -28,12 +28,12 @@ export default function Footer() {
             >
             Política de Compra
           </Link>
-            <a
-              href="#"
-              className="text-white text-decoration-none border-end pe-2 me-1"
+            <Link
+            to="/politica-privacidad"
+            className="text-white text-decoration-none border-end pe-2 me-1"
             >
-              Política de privacidad
-            </a>
+            Política de privacidad
+            </Link>
             <a
               href="#"
               className="text-white text-decoration-none border-end pe-2 me-1"
