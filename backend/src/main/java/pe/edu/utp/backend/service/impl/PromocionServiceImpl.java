@@ -126,6 +126,12 @@ public class PromocionServiceImpl
         promocion.setMaximoUsos(
                 request.getMaximoUsos());
 
+        promocion.setStockDisponible(
+                request.getStockDisponible());
+
+        promocion.setEstado(
+                request.getEstado());
+
         promocion = promocionRepository.save(promocion);
 
         return convertirDTO(promocion);
@@ -166,6 +172,14 @@ public class PromocionServiceImpl
                     null);
         }
 
+        if (p.getStockDisponible() == null || p.getStockDisponible() <= 0) {
+
+            return new PromocionResponse(
+                    false,
+                    "Promoción sin stock",
+                    null);
+        }
+
         if (p.getCantidadUsos() >= p.getMaximoUsos()) {
 
             return new PromocionResponse(
@@ -177,6 +191,57 @@ public class PromocionServiceImpl
         return new PromocionResponse(
                 true,
                 "Promoción válida",
+                p.getDescuentoPorcentaje());
+    }
+
+    @Override
+    public PromocionResponse aplicarPromocion(
+            String codigo) {
+
+        var promo = promocionRepository
+                .findByCodigo(codigo);
+
+        if (promo.isEmpty()) {
+            return new PromocionResponse(
+                    false,
+                    "Código inexistente",
+                    null);
+        }
+
+        Promocion p = promo.get();
+        LocalDate hoy = LocalDate.now();
+
+        if (hoy.isBefore(p.getFechaInicio())
+                || hoy.isAfter(p.getFechaFin())) {
+
+            return new PromocionResponse(
+                    false,
+                    "Promoción vencida",
+                    null);
+        }
+
+        if (p.getStockDisponible() == null || p.getStockDisponible() <= 0) {
+            return new PromocionResponse(
+                    false,
+                    "Promoción sin stock",
+                    null);
+        }
+
+        if (p.getCantidadUsos() >= p.getMaximoUsos()) {
+
+            return new PromocionResponse(
+                    false,
+                    "Promoción agotada",
+                    null);
+        }
+
+        p.setCantidadUsos(p.getCantidadUsos() + 1);
+        p.setStockDisponible(p.getStockDisponible() - 1);
+        promocionRepository.save(p);
+
+        return new PromocionResponse(
+                true,
+                "Promoción aplicada",
                 p.getDescuentoPorcentaje());
     }
 
@@ -208,6 +273,15 @@ public class PromocionServiceImpl
 
         dto.setMaximoUsos(
                 promocion.getMaximoUsos());
+
+        dto.setStockDisponible(
+                promocion.getStockDisponible());
+
+        dto.setDescripcion(
+                promocion.getDescripcion());
+
+        dto.setFechaCreacion(
+                promocion.getFechaCreacion());
 
         return dto;
     }

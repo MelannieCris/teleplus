@@ -70,4 +70,13 @@ public class PromocionController {
                 service.validarPromocion(
                         request.getCodigo()));
     }
+
+    @PostMapping("/aplicar")
+    public ResponseEntity<PromocionResponse> aplicarPromocion(
+            @RequestBody PromocionRequest request) {
+
+        return ResponseEntity.ok(
+                service.aplicarPromocion(
+                        request.getCodigo()));
+    }
 }

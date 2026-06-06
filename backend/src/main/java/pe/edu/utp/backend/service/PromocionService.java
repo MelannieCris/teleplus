@@ -24,4 +24,6 @@ public interface PromocionService {
 
     PromocionResponse validarPromocion(String codigo);
 
+    PromocionResponse aplicarPromocion(String codigo);
+
 }
