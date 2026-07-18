@@ -1,0 +1,136 @@
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+/* NAV */
+.navbar {
+  background: #000;
+}
+
+/* HERO*/
+.seccion-principal {
+  min-height: 0vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* FONDO */
+.campo-escenario {
+  background-color: #f0aa1d;
+  padding-top: 0;
+}
+
+/* CONTENEDOR */
+.contenedor-escenario {
+  background: #f0aa1d;
+  padding-bottom: 0;
+}
+
+/* ESCENARIO */
+.escenario {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  background: linear-gradient(to top, #f0aa1d 0%, #f0aa1d 40%, #f0aa1d 100%);
+}
+
+/* MAPA */
+.mapa {
+  width: 360px;
+  max-width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.imagen-mapa {
+  display: block;
+  width: 400px;
+  max-width: 100%;
+  margin: 0 auto 8px auto;
+}
+
+/* CAJA BOLETOS */
+.caja-boletos {
+  position: relative;
+  margin: 20px auto 0 auto;
+  width: calc(100% - 40px);
+  max-width: 960px;
+  background: transparent;
+  border-radius: 6px;
+  padding: 0 10px;
+}
+
+/* TABLA */
+.tabla-precios {
+  gap: 12px;
+}
+
+/* FILAS */
+.fila-precios {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ETIQUETA LATERAL */
+.etiqueta-fila {
+  width: 140px;
+  background: transparent;
+  color: #092950;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* CELDAS */
+.celda-precio {
+  background: #071021;
+  color: #fff;
+  padding: 12px 14px;
+  text-align: center;
+  border: 2px solid #1b263b;
+  min-width: 140px;
+  box-sizing: border-box;
+}
+
+.celda-precio .etiqueta {
+  font-size: 12px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.celda-precio .precio {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+/* DESTACADO */
+.destacado {
+  background: #ffd600;
+  color: #07101a;
+  border-color: #ffd600;
+}
+
+/* DESCRIPCIÓN */
+.descripcion {
+  background: #111;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+/* FOOTER */
+.pie {
+  background: #000;
+  text-align: center;
+  padding: 20px;
+}

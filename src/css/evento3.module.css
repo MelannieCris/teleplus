@@ -1,0 +1,154 @@
+:root {
+  --bs-body-bg-orange: #fe8200;
+  --bs-body-bg-yellow: #fcde1d;
+}
+
+.bs-body-bg-override {
+  background-color: var(--bs-body-bg-orange) !important;
+}
+
+.bs-body-bg-override-yellow {
+  background-color: var(--bs-body-bg-yellow) !important;
+}
+
+.event-image-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.event-image {
+  display: block;
+  width: min(100%, 980px);
+  height: auto;
+  margin: 0 auto;
+}
+
+body {
+  margin: 0;
+}
+
+.img-footer {
+  max-width: 350px;
+}
+
+.ticket-table-wrapper {
+  overflow-x: auto;
+}
+
+.ticket-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 8px;
+  color: #000;
+}
+
+.ticket-table th {
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  vertical-align: bottom;
+  color: #000;
+}
+
+.ticket-table .th-sector {
+  text-align: left;
+  width: 40%;
+  color: #000;
+}
+
+.ticket-table .th-title {
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #000;
+}
+
+.ticket-table .th-sub {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  line-height: 1.15;
+  font-weight: 700;
+  color: #000;
+}
+
+.ticket-table td {
+  border: 4px solid #111;
+  background: transparent;
+  font-weight: 800;
+  text-align: center;
+  font-size: 2.3rem;
+  line-height: 1;
+  padding: 0.55rem 0.4rem;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.ticket-table .price-prefix {
+  font-size: 0.58em;
+  margin-right: 0.18rem;
+}
+
+.ticket-table .price-decimals {
+  font-size: 0.55em;
+  vertical-align: super;
+}
+
+.ticket-table .price--highlight {
+  background-color: var(--bs-body-bg-yellow);
+}
+
+/* Hover effects removed per request */
+
+/* ensure highlighted price cells keep their color when any hover rules apply */
+.ticket-table tbody tr td.price--highlight {
+  background-color: var(--bs-body-bg-yellow);
+}
+
+.ticket-table .sector-cell {
+  border: none;
+  text-align: left;
+  padding: 0.25rem 0.35rem;
+}
+
+.sector-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sector-color {
+  width: 16px;
+  height: 52px;
+  border-left: 8px solid #111;
+}
+
+.sector-title {
+  display: block;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.75rem;
+  line-height: 1.02;
+  color: #000;
+}
+
+.sector-sub {
+  display: block;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  line-height: 1.1;
+  color: #000;
+}
+
+@media (max-width: 992px) {
+  .ticket-table {
+    min-width: 980px;
+  }
+}
+
+/* Override global table row hover from other styles (e.g. dashboard.css) */
+.ticket-table tbody tr:hover {
+  background: transparent !important;
+}

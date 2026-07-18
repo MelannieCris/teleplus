@@ -1,0 +1,149 @@
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+/* NAV */
+.navbar {
+  background: #000;
+}
+
+/* HERO*/
+
+/* FONDO */
+.campo-escenario {
+  background-color: #081020;
+  padding-top: 0;
+}
+
+/* CONTENEDOR */
+.contenedor-escenario {
+  background: #07101a;
+  padding-bottom: 0;
+}
+
+.contenedor-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+/* ESCENARIO */
+.escenario {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  background: linear-gradient(
+    to top,
+    rgba(7, 16, 26, 1) 0%,
+    rgba(7, 16, 26, 0.6) 40%,
+    rgba(7, 16, 26, 0) 100%
+  );
+}
+
+/* MAPA */
+.mapa {
+  width: 360px;
+  max-width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.imagen-mapa {
+  display: block;
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto 8px auto;
+}
+
+/* CAJA BOLETOS */
+.caja-boletos {
+  position: relative;
+  margin: 20px auto 0 auto;
+  width: calc(100% - 40px);
+  max-width: 960px;
+  background: transparent;
+  border-radius: 6px;
+  padding: 0 10px;
+}
+
+/* TABLA */
+.tabla-precios {
+  gap: 12px;
+}
+
+/* FILAS */
+.fila-precios {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ETIQUETA LATERAL */
+.etiqueta-fila {
+  width: 140px;
+  background: transparent;
+  color: #092950;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* CELDAS */
+.celda-precio {
+  background: #071021;
+  color: #fff;
+  padding: 12px 14px;
+  text-align: center;
+  border: 2px solid #1b263b;
+  min-width: 140px;
+  box-sizing: border-box;
+}
+
+.celda-precio .etiqueta {
+  font-size: 12px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.celda-precio .precio {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+/* DESTACADO */
+.destacado {
+  background: #092950;
+  color: #07101a;
+  border-color: #092950;
+}
+
+/* DESCRIPCIÓN */
+.descripcion {
+  background: #111;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.botones-seccion {
+  background-color: #fde000;
+  color: #000;
+}
+
+/* FOOTER */
+.pie {
+  background: #000;
+  text-align: center;
+  padding: 20px;
+}
